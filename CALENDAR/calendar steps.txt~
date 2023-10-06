@@ -1,0 +1,53 @@
+
+
+
+
+
+******************
+
+1) From within forms open the file stndrd.old via file, open.
+This will add the item "standards" to the object navigator/object libraries section. 
+This will now always appear in the object navigator.
+
+
+
+2) Next open the form that you wish the calendar to? be on.
+
+
+
+3) Expand the "library tabs" section of the "standards" item in "object libraries" to reveal 5 items, inc. "components".
+ Right click on "components" & select? "object libraries" from the menu that appears.
+
+
+
+4) From the box that appears select the component "calendar" and drag it to the 
+form you wish it to be added to within the "object navigator".? It will then ask 
+whether you want to "sub-class" or "copy". Select copy, or the form with the calendar
+ will not work on PC's that does not have the standards item added. Copying will add 
+all required bits you need for the calendar.
+
+
+
+5) Next open the "calendar.pll" file & this will add a "calendar" item to
+ the "pl/sql libraries" section on the "object navigator". 
+Select the "program? unit" section and drag it up to the "programs unit" sectino of your form. 
+This will add 2 items to the "programs unit" section (date_lov - package spec & date lov -package body).
+
+
+
+
+
+6) Next on my form i added a button to call the calender with a "when_button_pressed" trigger & added? this code.
+
+
+
+
+DECLARE
+ XP NUMBER;
+ YP NUMBER;
+
+BEGIN XP:=GET_ITEM_PROPERTY('F_DT',X_POS); YP:=GET_ITEM_PROPERTY('F_DT',y_POS);
+
+date_lov.get_date(sysdate,'F_DT',xp,yp,'From Date','OK','Cancel',TRUE,FALSE,FALSE);
+
+END;

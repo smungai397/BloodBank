@@ -1,0 +1,22 @@
+declare
+	repid REPORT_OBJECT;
+	v_rep VARCHAR2(100);
+	rep_status VARCHAR2(20);
+BEGIN
+	repid:=find_report_object('REPORT39');
+	v_rep:=RUN_REPORT_OBJECT(repid);
+	rep_status:=REPORT_OBJECT_STATUS(v_rep);
+	WHILE rep_status in ('RUNNING','OPENNING_REPORT','ENQUEUED')
+	LOOP
+		rep_status:=report_object_status(v_rep);
+	END LOOP;
+	IF REP_STATUS='FINISHED' THEN
+		WEB.SHOW_DOCUMENT('http://localhost:8889/reports/rwservlet/getjobid'||substr(v_rep,instr(v_rep,'_',-1)+1)
+		||'?'||'server=cos','_blank');
+--	begin
+	--	WEB.SHOW_DOCUMENT('http://127.0.0.1:8889/reports/rwservlet?destype=cache$desformat=htmlcss$report=c:\vista\modules\report_staff.rdf
+	--	$userid=mose/mose@orcl$paramform=yes');
+	ELSE
+	MESSAGE('Error when running report');
+	end if;
+	end;

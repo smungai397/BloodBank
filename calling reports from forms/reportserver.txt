@@ -1,0 +1,2 @@
+start C:\DevSuiteHome_1\bin\namingservice 5501
+start C:\DevSuiteHome_1\bin\rwserver server=Cos 
